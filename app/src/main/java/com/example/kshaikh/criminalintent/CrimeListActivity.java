@@ -3,11 +3,10 @@ package com.example.kshaikh.criminalintent;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 
-public class CrimeActivity extends SingleFragmentActivity {
+public class CrimeListActivity extends SingleFragmentActivity {
 
     private FragmentManager mFm;
     @Override
@@ -16,7 +15,8 @@ public class CrimeActivity extends SingleFragmentActivity {
     }
 
     @Override
-    protected Fragment createFragment() {
-        return new CrimeFragment();
+    protected Fragment createFragment()
+    {
+        return new CrimeListFragment();
     }
 }

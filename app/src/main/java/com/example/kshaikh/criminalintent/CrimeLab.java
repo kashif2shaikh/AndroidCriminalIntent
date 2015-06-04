@@ -20,6 +20,7 @@ public class CrimeLab {
     {
         mAppContext = appContext;
         mCrimes = new ArrayList<Crime>();
+        generateCrimes();
     }
 
     private void generateCrimes()
