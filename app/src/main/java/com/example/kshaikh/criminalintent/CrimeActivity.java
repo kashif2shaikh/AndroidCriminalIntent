@@ -1,47 +1,24 @@
 package com.example.kshaikh.criminalintent;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class CrimeActivity extends AppCompatActivity {
+public class CrimeActivity extends SingleFragmentActivity {
 
     private FragmentManager mFm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crime);
-
-        mFm = getFragmentManager();
-        addCrimeFragment();
     }
 
-    private void addCrimeFragment()
+    @Override
+    protected Fragment createFragment()
     {
-        Fragment fragment = mFm.findFragmentById(R.id.fragmentContainer);
-        if(fragment == null) {
-            // This looks confusing, but when activity is re-created on rotation for instance, the fragments
-            // are not destroyed
-            fragment = new CrimeFragment();
-            mFm.beginTransaction()
-                    .add(R.id.fragmentContainer, fragment)
-                    .commit();
-        }
-    }
-
-    private CrimeFragment getCrimeFragment()
-    {
-        Fragment fragment = mFm.findFragmentById(R.id.fragmentContainer);
-        if(fragment != null) {
-            return (CrimeFragment)fragment;
-        }
-        return null;
+        return new CrimeFragment();
     }
 
 
