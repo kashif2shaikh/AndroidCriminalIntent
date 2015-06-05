@@ -1,4 +1,4 @@
-package com.example.kshaikh.criminalintent;
+package com.example.kshaikh.criminalintent.models;
 
 import java.util.Date;
 import java.util.UUID;

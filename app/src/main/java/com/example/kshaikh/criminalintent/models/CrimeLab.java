@@ -1,4 +1,4 @@
-package com.example.kshaikh.criminalintent;
+package com.example.kshaikh.criminalintent.models;
 
 import android.content.Context;
 

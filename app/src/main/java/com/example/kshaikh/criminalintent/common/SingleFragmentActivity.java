@@ -1,10 +1,12 @@
-package com.example.kshaikh.criminalintent;
+package com.example.kshaikh.criminalintent.common;
 
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.kshaikh.criminalintent.R;
 
 /**
  * Created by kshaikh on 15-06-04.
