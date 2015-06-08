@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import com.example.kshaikh.criminalintent.R;
 
@@ -36,7 +37,8 @@ public class DatePickerFragment extends DialogFragment {
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        DatePicker picker = (DatePicker)getActivity().getLayoutInflater().inflate(R.layout.dialog_date, null);
+        View v = getActivity().getLayoutInflater().inflate(R.layout.dialog_date, null);
+        DatePicker picker = (DatePicker)v.findViewById(R.id.dialog_date_datePicker);
         picker.init(year, month, day, new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker datePicker, int year, int month, int day) {
@@ -55,8 +57,8 @@ public class DatePickerFragment extends DialogFragment {
             }
         });
 
-        return new AlertDialog.Builder(getActivity())
-                .setView(picker)
+        Dialog dialog = new AlertDialog.Builder(getActivity())
+                .setView(v)
                 .setTitle(R.string.crime_datepicker_title)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
@@ -65,6 +67,10 @@ public class DatePickerFragment extends DialogFragment {
                     }
                 })
                 .create();
+
+        //dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        return dialog;
     }
     private void sendResult(int resultCode) {
 
