@@ -25,7 +25,7 @@ public class CrimeLab {
 
     private void generateCrimes()
     {
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 3; i++) {
             Crime c = new Crime();
             c.setTitle("Crime #" + i);
             c.setSolved(i % 2 == 0); // Every other one
@@ -50,6 +50,10 @@ public class CrimeLab {
                 return c;
         }
         return null;
+    }
+
+    public void addCrime(Crime c) {
+        mCrimes.add(c);
     }
 
 //    public void setCrimes(ArrayList<Crime> crimes) {

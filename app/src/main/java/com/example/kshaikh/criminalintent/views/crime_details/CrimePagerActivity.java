@@ -36,6 +36,8 @@ public class CrimePagerActivity extends AppCompatActivity {
         mCrimes = CrimeLab.get(this).getCrimes();
         if(mCrimes.size() > 0)
             setTitle(mCrimes.get(0).getTitle());
+        else
+            setTitle("");
 
         mFm = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(mFm) {
@@ -61,6 +63,9 @@ public class CrimePagerActivity extends AppCompatActivity {
                 Crime crime = mCrimes.get(position);
                 if(crime.getTitle() != null) {
                     setTitle(crime.getTitle());
+                }
+                else {
+                    setTitle("");
                 }
 
             }
