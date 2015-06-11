@@ -4,6 +4,8 @@ package com.example.kshaikh.criminalintent.views.crime_list;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -102,6 +104,17 @@ public class CrimeListFragment extends ListFragment {
                 Intent i = new Intent(getActivity(), CrimePagerActivity.class);
                 i.putExtra(CrimeFragment.EXTRA_CRIME_ID, crime.getId());
                 startActivityForResult(i, 0);
+                return true;
+            case R.id.menu_item_show_subtitle:
+                ActionBar bar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+                if(bar.getSubtitle() == null) {
+                    bar.setSubtitle(R.string.subtitle);
+                    item.setTitle(R.string.hide_subtitle);
+                }
+                else {
+                    bar.setSubtitle(null);
+                    item.setTitle(R.string.show_subtitle);
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
