@@ -35,7 +35,7 @@ public class CrimeLab {
 
     private void generateCrimes()
     {
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 10; i++) {
             Crime c = new Crime();
             c.setTitle("Crime #" + i);
             c.setSolved(i % 2 == 0); // Every other one
@@ -64,6 +64,9 @@ public class CrimeLab {
 
     public void addCrime(Crime c) {
         mCrimes.add(c);
+    }
+    public void deleteCrime(Crime c) {
+        mCrimes.remove(c);
     }
 
     public boolean saveCrimes() {
