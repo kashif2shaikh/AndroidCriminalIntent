@@ -7,6 +7,7 @@ import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,12 +33,13 @@ public class CrimeListFragment extends ListFragment {
     private static final String TAG = "CrimeListFragment";
 
     private ArrayList<Crime> mCrimes;
+    private boolean mSubtitleVisible = false; // ActionBar sub-title state not saved on rotation.
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
+        setRetainInstance(true);
         getActivity().setTitle(R.string.crimes_title);
         mCrimes = CrimeLab.get(getActivity()).getCrimes();
 
@@ -45,6 +47,13 @@ public class CrimeListFragment extends ListFragment {
         //ArrayAdapter<Crime> adapter = new ArrayAdapter<Crime>(getActivity(),android.R.layout.simple_list_item_1,mCrimes);
         setListAdapter(adapter);
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = super.onCreateView(inflater, container, savedInstanceState);
+        showSubtitle(mSubtitleVisible);
+        return v;
     }
 
     @Override
@@ -93,6 +102,10 @@ public class CrimeListFragment extends ListFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_crime_list, menu);
+        MenuItem showSubtitle = menu.findItem(R.id.menu_item_show_subtitle);
+        if(showSubtitle != null && mSubtitleVisible) {
+            showSubtitle.setTitle(R.string.hide_subtitle);
+        }
     }
 
     @Override
@@ -108,11 +121,13 @@ public class CrimeListFragment extends ListFragment {
             case R.id.menu_item_show_subtitle:
                 ActionBar bar = ((AppCompatActivity)getActivity()).getSupportActionBar();
                 if(bar.getSubtitle() == null) {
-                    bar.setSubtitle(R.string.subtitle);
+                    mSubtitleVisible = true;
+                    showSubtitle(mSubtitleVisible);
                     item.setTitle(R.string.hide_subtitle);
                 }
                 else {
-                    bar.setSubtitle(null);
+                    mSubtitleVisible = false;
+                    showSubtitle(mSubtitleVisible);
                     item.setTitle(R.string.show_subtitle);
                 }
                 return true;
@@ -120,5 +135,16 @@ public class CrimeListFragment extends ListFragment {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    private void showSubtitle(boolean value)
+    {
+        ActionBar bar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        if(value) {
+            bar.setSubtitle(R.string.subtitle);
+        }
+        else {
+            bar.setSubtitle(null);
+        }
     }
 }
