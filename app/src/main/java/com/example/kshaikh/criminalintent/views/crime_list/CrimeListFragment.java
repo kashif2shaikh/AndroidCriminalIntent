@@ -44,15 +44,17 @@ public class CrimeListFragment extends ListFragment {
         mCrimes = CrimeLab.get(getActivity()).getCrimes();
 
         CrimeAdaptor adapter = new CrimeAdaptor(mCrimes);
-        //ArrayAdapter<Crime> adapter = new ArrayAdapter<Crime>(getActivity(),android.R.layout.simple_list_item_1,mCrimes);
+
         setListAdapter(adapter);
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = super.onCreateView(inflater, container, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_crime_list, parent, false);
+        //View v = super.onCreateView(inflater, container, savedInstanceState); // if u don't want to have empty view, use this.
         showSubtitle(mSubtitleVisible);
+
         return v;
     }
 
