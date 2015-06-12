@@ -23,4 +23,19 @@
             />
 
     </LinearLayout>
+    <FrameLayout
+        android:id="@+id/crime_camera_progressContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        >
+        <!-- Make frame-layout full-screen and make it clickable to block taps reaching views below -->
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            />
+
+    </FrameLayout>
 </FrameLayout>
