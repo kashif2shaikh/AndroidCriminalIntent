@@ -16,6 +16,7 @@
     <string name="delete_crime">Delete</string>
 
     <string name="crimes_empty_label">There are no crimes.</string>
+    <string name="take_picture">Take!</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

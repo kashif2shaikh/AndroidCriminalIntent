@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
 import com.example.kshaikh.criminalintent.R;
 
@@ -37,7 +36,7 @@ public class DatePickerFragment extends DialogFragment {
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        View v = getActivity().getLayoutInflater().inflate(R.layout.dialog_date, null);
+        View v = getActivity().getLayoutInflater().inflate(R.layout.date_dialog, null);
         DatePicker picker = (DatePicker)v.findViewById(R.id.dialog_date_datePicker);
         picker.init(year, month, day, new DatePicker.OnDateChangedListener() {
             @Override

@@ -53,7 +53,7 @@ public class CrimeListFragment extends ListFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        //View v = inflater.inflate(R.layout.fragment_crime_list, parent, false);
+        //View v = inflater.inflate(R.layout.crime_list_fragment, parent, false);
         View v = super.onCreateView(inflater, parent, savedInstanceState); // if u don't want to have empty view, use this.
         showSubtitle(mSubtitleVisible);
 
@@ -126,7 +126,7 @@ public class CrimeListFragment extends ListFragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if(convertView == null) {
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_crime, null);
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.crime_list_item, null);
             }
 
             Crime c = getItem(position);
@@ -153,7 +153,7 @@ public class CrimeListFragment extends ListFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_crime_list, menu);
+        inflater.inflate(R.menu.crime_list_fragment, menu);
         MenuItem showSubtitle = menu.findItem(R.id.menu_item_show_subtitle);
         if(showSubtitle != null && mSubtitleVisible) {
             showSubtitle.setTitle(R.string.hide_subtitle);

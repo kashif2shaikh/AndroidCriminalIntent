@@ -1,13 +1,14 @@
 package com.example.kshaikh.criminalintent.views.crime_details;
 
 import android.app.Activity;
-import android.app.Notification;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.Camera;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,10 +20,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.example.kshaikh.criminalintent.R;
 import com.example.kshaikh.criminalintent.models.Crime;
 import com.example.kshaikh.criminalintent.models.CrimeLab;
+import com.example.kshaikh.criminalintent.views.crime_camera.CrimeCameraActivity;
 
 import java.util.Date;
 import java.util.UUID;
@@ -37,6 +40,7 @@ public class CrimeFragment extends Fragment {
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckbox;
+    private ImageButton mPhotoButton;
 
     public CrimeFragment() {
     }
@@ -65,7 +69,7 @@ public class CrimeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_crime, parent, false);
+        View v = inflater.inflate(R.layout.crime_fragment, parent, false);
 
         AppCompatActivity activity = (AppCompatActivity)getActivity();
         if(NavUtils.getParentActivityName(activity) != null) {
@@ -114,7 +118,25 @@ public class CrimeFragment extends Fragment {
             }
         });
 
+        mPhotoButton = (ImageButton)v.findViewById(R.id.crime_imageButton);
+        mPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), CrimeCameraActivity.class);
+                startActivity(i);
+            }
+        });
+
+        mPhotoButton.setEnabled(cameraExists());
+
         return v;
+    }
+
+    private boolean cameraExists() {
+        PackageManager pm = getActivity().getPackageManager();
+        return (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || // this is any back-facing camera
+                pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT) ||
+                Camera.getNumberOfCameras() > 0);
     }
 
     private void showDatePicker()
