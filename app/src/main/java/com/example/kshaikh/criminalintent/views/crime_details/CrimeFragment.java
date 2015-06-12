@@ -40,6 +40,7 @@ public class CrimeFragment extends Fragment {
     private static final String TAG = "CrimeFragment";
     public static final String EXTRA_CRIME_ID = "com.example.kshaikh.criminalintent.crime_id";
     private static final String DATEPICKER_FRAGMENT = "datepicker";
+    private static final String IMAGE_PREVIEW_FRAGMENT = "imagePreview";
     private static final int DATEPICKER_REQUEST = 0;
     private static final int PHOTO_REQUEST = 1;
 
@@ -138,6 +139,12 @@ public class CrimeFragment extends Fragment {
         mPhotoButton.setEnabled(cameraExists());
 
         mPhotoView = (ImageView)v.findViewById(R.id.crime_imageView);
+        mPhotoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPhotoPreview();
+            }
+        });
 
         return v;
     }
@@ -147,6 +154,17 @@ public class CrimeFragment extends Fragment {
         return (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || // this is any back-facing camera
                 pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT) ||
                 Camera.getNumberOfCameras() > 0);
+    }
+
+    private void showPhotoPreview()
+    {
+        Photo p = mCrime.getPhoto();
+        if(p == null)
+            return;
+
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
+        ImagePreviewFragment.newInstance(path).show(fm, IMAGE_PREVIEW_FRAGMENT);
     }
 
     private void showDatePicker()
