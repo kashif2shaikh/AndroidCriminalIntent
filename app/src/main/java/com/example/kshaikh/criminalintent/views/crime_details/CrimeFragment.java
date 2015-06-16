@@ -61,6 +61,11 @@ public class CrimeFragment extends Fragment {
     private ImageView mPhotoView;
     private Button mReportButton;
     private Button mSuspectButton;
+    private Callbacks mCallbacks;
+
+    public interface Callbacks {
+        void onCrimeUpdated(Crime crime);
+    }
 
     public CrimeFragment() {
     }
@@ -113,7 +118,7 @@ public class CrimeFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                // nothing
+                mCallbacks.onCrimeUpdated(mCrime);
                 getActivity().setTitle(editable);
             }
         });
@@ -135,6 +140,7 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 mCrime.setSolved(isChecked);
+                mCallbacks.onCrimeUpdated(mCrime);
             }
         });
 
@@ -240,6 +246,7 @@ public class CrimeFragment extends Fragment {
         if(requestCode == DATEPICKER_REQUEST) {
             Date date = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);
+            mCallbacks.onCrimeUpdated(mCrime);
             updateDate();
         }
         else if(requestCode == PHOTO_REQUEST) {
@@ -248,6 +255,7 @@ public class CrimeFragment extends Fragment {
 
                 Photo p = new Photo(filename);
                 mCrime.setPhoto(p);
+                mCallbacks.onCrimeUpdated(mCrime);
                 showPhoto();
                 Log.i(TAG, "Crime: " + mCrime.getTitle() + " has a photo with filename=" + filename);
             }
@@ -269,6 +277,7 @@ public class CrimeFragment extends Fragment {
             c.moveToFirst();
             String suspect = c.getString(0);
             mCrime.setSuspect(suspect);
+            mCallbacks.onCrimeUpdated(mCrime);
             mSuspectButton.setText(suspect);
             c.close();
         }
@@ -309,10 +318,24 @@ public class CrimeFragment extends Fragment {
         }
     }
 
+
+
     @Override
     public void onStart() {
         super.onStart();
         showPhoto();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mCallbacks = (Callbacks)activity;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
     }
 
     @Override

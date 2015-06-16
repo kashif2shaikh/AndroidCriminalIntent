@@ -17,13 +17,19 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     protected FragmentManager mFm;
 
+    protected int getLayoutResId() {
+        return R.layout.single_fragment_activity;
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.single_fragment_activity);
+        setContentView(getLayoutResId());
 
         mFm = getSupportFragmentManager();
         addSingleFragment();
     }
+
+
 
     private void addSingleFragment()
     {
